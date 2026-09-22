@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinic Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<aside class="sidebar">
+    <h2>🏥 ClinicOS</h2>
+
+    <button onclick="showPage('dashboard')">Dashboard</button>
+    <button onclick="showPage('patients')">Patients</button>
+    <button onclick="showPage('doctors')">Doctors</button>
+    <button onclick="showPage('appointments')">Appointments</button>
+    <button onclick="showPage('queue')">Live Queue</button>
+    <button onclick="showPage('billing')">Billing</button>
+    <button onclick="showPage('records')">Medical Records</button>
+</aside>
+
+<main>
+
+<header>
+    <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p>Clinic Management System</p>
+    </div>
+    <span id="today"></span>
+</header>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page">
+
+    <div class="cards">
+
+        <div class="card">
+            <span>👥</span>
+            <p>Total Patients</p>
+            <h2 id="patientsCount">0</h2>
+        </div>
+
+        <div class="card">
+            <span>📅</span>
+            <p>Today's Appointments</p>
+            <h2 id="appointmentsCount">0</h2>
+        </div>
+
+        <div class="card">
+            <span>⏳</span>
+            <p>Waiting Patients</p>
+            <h2 id="waitingCount">0</h2>
+        </div>
+
+        <div class="card">
+            <span>👨‍⚕️</span>
+            <p>Available Doctors</p>
+            <h2 id="doctorsCount">0</h2>
+        </div>
+
+        <div class="card">
+            <span>✅</span>
+            <p>Completed</p>
+            <h2 id="completedCount">0</h2>
+        </div>
+
+        <div class="card">
+            <span>💰</span>
+            <p>Today's Revenue</p>
+            <h2 id="revenueCount">₹0</h2>
+        </div>
+
+        <div class="card">
+            <span>🚨</span>
+            <p>Emergency Cases</p>
+            <h2 id="emergencyCount">0</h2>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PATIENTS -->
+
+<section id="patients" class="page">
+
+    <div class="panel">
+
+        <h2>Register Patient</h2>
+
+        <form id="patientForm">
+
+            <input name="name"
+                   placeholder="Patient Name"
+                   required>
+
+            <input name="age"
+                   type="number"
+                   placeholder="Age">
+
+            <select name="gender">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
+
+            <input name="phone"
+                   placeholder="Phone Number">
+
+            <input name="email"
+                   type="email"
+                   placeholder="Email">
+
+            <input name="symptoms"
+                   placeholder="Symptoms">
+
+            <button type="submit">
+                Register Patient
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>Patient List</h2>
+
+        <div id="patientTable"></div>
+
+    </div>
+
+</section>
+
+
+<!-- DOCTORS -->
+
+<section id="doctors" class="page">
+
+    <div class="panel">
+
+        <h2>Add Doctor</h2>
+
+        <form id="doctorForm">
+
+            <input name="name"
+                   placeholder="Doctor Name"
+                   required>
+
+            <input name="specialization"
+                   placeholder="Specialization">
+
+            <input name="phone"
+                   placeholder="Phone">
+
+            <button type="submit">
+                Add Doctor
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>Doctors</h2>
+
+        <div id="doctorTable"></div>
+
+    </div>
+
+</section>
+
+
+<!-- APPOINTMENTS -->
+
+<section id="appointments" class="page">
+
+    <div class="panel">
+
+        <h2>Book Appointment</h2>
+
+        <form id="appointmentForm">
+
+            <select id="appointmentPatient"
+                    name="patient_id"
+                    required>
+            </select>
+
+            <select id="appointmentDoctor"
+                    name="doctor_id"
+                    required>
+            </select>
+
+            <input name="appointment_date"
+                   type="date"
+                   required>
+
+            <input name="appointment_time"
+                   type="time"
+                   required>
+
+            <button type="submit">
+                Book Appointment
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>Appointments</h2>
+
+        <div id="appointmentTable"></div>
+
+    </div>
+
+</section>
+
+
+<!-- QUEUE -->
+
+<section id="queue" class="page">
+
+    <div class="panel">
+
+        <h2>Add Patient to Queue</h2>
+
+        <form id="queueForm">
+
+            <select id="queuePatient"
+                    name="patient_id"
+                    required>
+            </select>
+
+            <label>
+                <input type="checkbox"
+                       name="emergency">
+                Emergency
+            </label>
+
+            <button type="submit">
+                Generate Queue Number
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>Live Queue</h2>
+
+        <div id="queueTable"></div>
+
+    </div>
+
+</section>
+
+
+<!-- BILLING -->
+
+<section id="billing" class="page">
+
+    <div class="panel">
+
+        <h2>Generate Bill</h2>
+
+        <form id="billForm">
+
+            <select id="billPatient"
+                    name="patient_id"
+                    required>
+            </select>
+
+            <input name="consultation"
+                   type="number"
+                   placeholder="Consultation ₹">
+
+            <input name="tests"
+                   type="number"
+                   placeholder="Tests ₹">
+
+            <input name="medicines"
+                   type="number"
+                   placeholder="Medicines ₹">
+
+            <select name="payment_method">
+                <option>Cash</option>
+                <option>UPI</option>
+                <option>Card</option>
+            </select>
+
+            <button type="submit">
+                Generate Bill
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>Billing History</h2>
+
+        <div id="billTable"></div>
+
+    </div>
+
+</section>
+
+
+<!-- MEDICAL RECORDS -->
+
+<section id="records" class="page">
+
+    <div class="panel">
+
+        <h2>Medical Records</h2>
+
+        <select id="recordPatient"></select>
+
+        <button onclick="loadRecord()">
+            View Record
+        </button>
+
+        <div id="recordOutput"></div>
+
+    </div>
+
+</section>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

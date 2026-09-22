@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinicOS - Smart Clinic Management System</title>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i data-lucide="activity"></i>
+                </div>
+                <h2>ClinicOS</h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-item active" onclick="switchTab('dashboard')">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#appointments" class="nav-item" onclick="switchTab('appointments')">
+                    <i data-lucide="calendar"></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="#patients" class="nav-item" onclick="switchTab('patients')">
+                    <i data-lucide="users"></i>
+                    <span>Patients</span>
+                </a>
+                <a href="#prescriptions" class="nav-item" onclick="switchTab('prescriptions')">
+                    <i data-lucide="file-text"></i>
+                    <span>Prescriptions</span>
+                </a>
+            </nav>
+
+            <div class="user-profile">
+                <div class="avatar">DR</div>
+                <div class="user-info">
+                    <p class="name">Dr. Sarah Jenkins</p>
+                    <p class="role">Chief Medical Officer</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i data-lucide="search"></i>
+                    <input type="text" placeholder="Search patients, appointments, records...">
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" title="Notifications">
+                        <i data-lucide="bell"></i>
+                    </button>
+                    <button class="btn-primary" onclick="openAppointmentModal()">
+                        <i data-lucide="plus"></i> New Appointment
+                    </button>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <section id="dashboard" class="tab-content active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>Today's Patients</span>
+                            <i data-lucide="users" class="stat-icon"></i>
+                        </div>
+                        <h3 class="stat-value">24</h3>
+                        <p class="stat-desc positive">↑ 12% from yesterday</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>Appointments</span>
+                            <i data-lucide="calendar" class="stat-icon"></i>
+                        </div>
+                        <h3 class="stat-value">18</h3>
+                        <p class="stat-desc">4 remaining today</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>Prescriptions Issued</span>
+                            <i data-lucide="file-text" class="stat-icon"></i>
+                        </div>
+                        <h3 class="stat-value">15</h3>
+                        <p class="stat-desc positive">↑ 5% this week</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span>Revenue</span>
+                            <i data-lucide="dollar-sign" class="stat-icon"></i>
+                        </div>
+                        <h3 class="stat-value">$3,240</h3>
+                        <p class="stat-desc positive">↑ 8% this month</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Upcoming Appointments</h3>
+                            <a href="#" onclick="switchTab('appointments')">View All</a>
+                        </div>
+                        <ul class="appointment-list" id="dashboard-appointments">
+                            <!-- Populated by JavaScript -->
+                        </ul>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <h3>Recent Patients</h3>
+                            <a href="#" onclick="switchTab('patients')">View All</a>
+                        </div>
+                        <ul class="patient-list" id="dashboard-patients">
+                            <!-- Populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Appointments View -->
+            <section id="appointments" class="tab-content">
+                <div class="section-header">
+                    <h2>Manage Appointments</h2>
+                    <button class="btn-primary" onclick="openAppointmentModal()">+ Book Appointment</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Patient Name</th>
+                                <th>Time</th>
+                                <th>Doctor</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointments-table-body">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Patients View -->
+            <section id="patients" class="tab-content">
+                <div class="section-header">
+                    <h2>Patient Records</h2>
+                    <button class="btn-primary" onclick="openPatientModal()">+ Add New Patient</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Name</th>
+                                <th>Age / Gender</th>
+                                <th>Contact</th>
+                                <th>Last Visit</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patients-table-body">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Prescriptions View -->
+            <section id="prescriptions" class="tab-content">
+                <div class="section-header">
+                    <h2>Prescriptions & Medical Records</h2>
+                    <button class="btn-primary" onclick="openPrescriptionModal()">+ Issue Prescription</button>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Rx ID</th>
+                                <th>Patient Name</th>
+                                <th>Medication</th>
+                                <th>Dosage</th>
+                                <th>Date Issued</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prescriptions-table-body">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="modal-appointment">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>New Appointment</h3>
+                <span class="close-btn" onclick="closeModals()">&times;</span>
+            </div>
+            <form id="form-appointment" onsubmit="handleAppointmentSubmit(event)">
+                <div class="form-group">
+                    <label>Patient Name</label>
+                    <input type="text" required id="app-patient-name">
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <input type="time" required id="app-time">
+                </div>
+                <div class="form-group">
+                    <label>Doctor</label>
+                    <select id="app-doctor">
+                        <option>Dr. Sarah Jenkins</option>
+                        <option>Dr. Michael Chang</option>
+                        <option>Dr. Emily Stone</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Appointment Type</label>
+                    <input type="text" placeholder="e.g. General Checkup" id="app-type" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" onclick="closeModals()">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Appointment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
